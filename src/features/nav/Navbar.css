@@ -16,8 +16,9 @@
   font-style: italic;
 }
 
+/*----- Links -----*/
 #navbar-links {
-  display: flex;
+  display: none;
   height: 100%;
   list-style: none;
 }
@@ -46,3 +47,69 @@
   cursor: pointer;
   text-decoration: underline;
 }
+/*----- /Links -----*/
+
+/*----- Collapse toggle -----*/
+#navbar-collapse {
+  display: none;
+}
+
+#navbar-collapse-label {
+  display: flex;
+  align-items: center;
+  padding-right: 1rem;
+}
+
+#navbar-collapse:checked ~ #navbar-collapsedLinks {
+  display: flex;
+}
+
+#navbar-collapsedLinks {
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  margin-top: var(--navbar-height);
+  background-color: var(--light-dark-color);
+}
+
+#navbar-collapsedLinks a {
+  display: inline-block;
+  width: 100%;
+  padding: 1rem;
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+}
+/*----- /Collapse toggle -----*/
+
+/*----- Collapsed Links -----*/
+#navbar-collapsedLinks {
+  display: none;
+}
+/*----- /Collapsed Links -----*/
+
+/* ----- Breakpoints ----- */
+/* Medium screen devices (768px and above) */
+@media only screen and (min-width: 768px) {
+  #navbar-links {
+    display: flex;
+  }
+
+  #navbar-collapse-label {
+    display: none;
+  }
+}
+ 
+/* Extra big screen devices (1200px and above) */
+@media only screen and (min-width: 1200px) {
+  #navbar-links {
+    display: flex;
+  }
+
+  #navbar-collapse-label {
+    display: none;
+  }
+}
+/* ----- /Breakpoints ----- */

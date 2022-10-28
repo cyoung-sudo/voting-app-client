@@ -4,6 +4,7 @@ import axios from "axios";
 import { NavLink, useNavigate } from "react-router-dom";
 // Icons
 import { MdHowToVote } from "react-icons/md";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 export default function Navbar(props) {
   //Hooks
@@ -35,6 +36,8 @@ export default function Navbar(props) {
   return (
     <div id="navbar">
       <div id="navbar-logo"><span><MdHowToVote size={28}/></span>Voting App</div>
+
+      {/*----- Links -----*/}
       <ul id="navbar-links">
         <li>
           <NavLink
@@ -84,6 +87,66 @@ export default function Navbar(props) {
           <button onClick={handleLogout}>Logout</button>
         </li>}
       </ul>
+      {/*----- /Links -----*/}
+
+      {/*----- Collapse toggle -----*/}
+      <input id="navbar-collapse" type="checkbox"/>
+      <label id="navbar-collapse-label" htmlFor="navbar-collapse">
+        <GiHamburgerMenu size={25}/>
+      </label>
+      {/*----- /Collapse toggle -----*/}
+
+      {/*----- Collapsed Links -----*/}
+      <ul id="navbar-collapsedLinks">
+        <li>
+          <NavLink
+            to="/"
+            end
+            style={({ isActive }) =>
+              isActive ? activeStyle : undefined
+            }>Polls</NavLink>
+            
+        </li>
+
+        <li>
+          <NavLink
+            to="users"
+            end
+            style={({ isActive }) =>
+              isActive ? activeStyle : undefined
+            }>Users</NavLink>
+            
+        </li>
+        
+        {!props.user && <li>
+          <NavLink
+            to="signup"
+            style={({ isActive }) =>
+              isActive ? activeStyle : undefined
+            }>Signup</NavLink>
+        </li>}
+
+        {!props.user && <li>
+          <NavLink
+            to="login"
+            style={({ isActive }) =>
+              isActive ? activeStyle : undefined
+            }>Login</NavLink>
+        </li>}
+
+        {props.user && <li>
+          <NavLink
+            to={`users/${props.user._id}`}
+            style={({ isActive }) =>
+              isActive ? activeStyle : undefined
+            }>Profile</NavLink>
+        </li>}
+
+        {props.user && <li>
+          <button onClick={handleLogout}>Logout</button>
+        </li>}
+      </ul>
+      {/*----- Collapsed Links -----*/}
     </div>
   );
 };

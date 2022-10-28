@@ -3,8 +3,8 @@
 :root {
   /* Colors */
   --theme-color: mediumblue;
-  --light-color: hsla(0, 0%, 90%, 0.7);
-  --light-dark-color: hsla(0, 0%, 20%, 0.7);
+  --light-color: hsla(0, 0%, 90%, 0.8);
+  --light-dark-color: hsla(0, 0%, 20%, 0.8);
   --popUp-success-color: hsla(120, 90%, 90%, 0.5);
   --popUp-error-color: hsla(0, 90%, 90%, 0.5);
   /* Font Sizes */
