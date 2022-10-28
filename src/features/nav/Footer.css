@@ -1,0 +1,8 @@
+#footer {
+  padding: 2rem 1rem;
+  font-size: 0.8rem;
+  font-weight: 300;
+  text-align: center;
+  background-color: var(--theme-color);
+  color: white;
+}
