@@ -38,19 +38,47 @@ export default function Navbar(props) {
       <ul id="navbar-links">
         <li>
           <NavLink
+            to="/"
+            end
+            style={({ isActive }) =>
+              isActive ? activeStyle : undefined
+            }>Polls</NavLink>
+            
+        </li>
+
+        <li>
+          <NavLink
+            to="users"
+            end
+            style={({ isActive }) =>
+              isActive ? activeStyle : undefined
+            }>Users</NavLink>
+            
+        </li>
+        
+        {!props.user && <li>
+          <NavLink
             to="signup"
             style={({ isActive }) =>
               isActive ? activeStyle : undefined
             }>Signup</NavLink>
-        </li>
+        </li>}
 
-        <li>
+        {!props.user && <li>
           <NavLink
             to="login"
             style={({ isActive }) =>
               isActive ? activeStyle : undefined
             }>Login</NavLink>
-        </li>
+        </li>}
+
+        {props.user && <li>
+          <NavLink
+            to={`users/${props.user._id}`}
+            style={({ isActive }) =>
+              isActive ? activeStyle : undefined
+            }>Profile</NavLink>
+        </li>}
 
         {props.user && <li>
           <button onClick={handleLogout}>Logout</button>

@@ -4,10 +4,11 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 // Router
 import { Routes, Route } from "react-router-dom";
-// Components
+// Features
 import Signup from "./features/auth/Signup";
 import Login from "./features/auth/Login";
 import Profile from "./features/user/Profile";
+import AllUsers from "./features/user/AllUsers";
 import AllPolls from "./features/poll/AllPolls";
 import Navbar from "./features/nav/Navbar";
 import Footer from "./features/nav/Footer";
@@ -40,9 +41,13 @@ function App() {
       <div id="app-content">
         <Routes>
           <Route path="/" element={<AllPolls/>}/>
-          <Route path="/signup" element={<Signup/>}/>
-          <Route path="/login" element={<Login setUser={setUser}/>}/>
-          <Route path="/profile" element={<Profile/>}/>
+          <Route path="signup" element={<Signup/>}/>
+          <Route path="login" element={<Login setUser={setUser}/>}/>
+
+          <Route path="users">
+            <Route index element={<AllUsers/>}/>
+            <Route path=":id" element={<Profile/>} />
+          </Route>
         </Routes>
       </div>
 

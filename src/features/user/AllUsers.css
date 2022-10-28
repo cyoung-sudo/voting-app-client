@@ -1,0 +1,55 @@
+#allUsers {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 3rem 0;
+}
+
+#allUsers-header {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+#allUsers-list {
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--light-color);
+  list-style: none;
+}
+
+#allUsers-list li {
+  padding: 1rem;
+  background-color: var(--light-dark-color);
+  color: white;
+}
+
+.allUsers-list-username {
+  color: white;
+  text-decoration: none;
+}
+
+.allUsers-list-username:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* Exclude last item */
+#allUsers-list li:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+/* ----- Breakpoints ----- */
+/* Medium screen devices (768px and above) */
+@media only screen and (min-width: 768px) {
+  #allUsers-list {
+    width: 80%;
+  }
+}
+ 
+/* Extra big screen devices (1200px and above) */
+@media only screen and (min-width: 1200px) {
+  #allUsers-list {
+    width: 60%;
+  }
+}
+/* ----- /Breakpoints ----- */

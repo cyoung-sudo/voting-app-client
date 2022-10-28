@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 60px);;
+  height: calc(100vh - var(--navbar-height));
 }
 
 #signup-header {
@@ -18,11 +18,15 @@
 /* ----- Breakpoints ----- */
 /* Medium screen devices (768px and above) */
 @media only screen and (min-width: 768px) {
-  
+  #signup-form {
+    width: 70%;
+  }
 }
  
 /* Extra big screen devices (1200px and above) */
 @media only screen and (min-width: 1200px) {
-  
+  #signup-form {
+    width: 50%;
+  }
 }
 /* ----- /Breakpoints ----- */

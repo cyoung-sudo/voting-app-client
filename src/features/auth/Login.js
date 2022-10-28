@@ -38,7 +38,7 @@ export default function Login(props) {
           console.log("Logged in");
           props.setUser(res.data.user);
           // Redirect to profile route
-          navigate("/profile");
+          navigate(`/users/${res.data.user._id}`);
         } else {
           console.log(res.data.message);
         }
