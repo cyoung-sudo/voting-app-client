@@ -5,11 +5,13 @@ import { useState, useEffect } from "react";
 // Router
 import { useParams } from "react-router-dom";
 // Components
+import DisplayPolls from "../../components/poll/DisplayPolls";
 import Loading from "../../components/general/Loading";
 
 export default function Profile(props) {
   // Requested data
   const [user, setUser] = useState(null);
+  const [polls, setPolls] = useState(null);
   // Hooks
   let { id } = useParams();
 
@@ -25,15 +27,33 @@ export default function Profile(props) {
       if(res.data.success) {
         setUser(res.data.user);
       }
+
+      return axios({
+        method: "post",
+        data: { id: res.data.user._id },
+        withCredentials: true,
+        url: "/api/polls/user"
+      })
+    })
+    .then(res => {
+      if(res.data.success) {
+        setPolls(res.data.polls)
+      }
     })
     .catch(err => console.log(err));
   }, []);
 
 
-  if(user) {
+  if(user && polls) {
     return (
       <div id="profile">
-        <h1>{user.username}</h1>
+        <div id="profile-header">
+          <h1>{user.username}</h1>
+        </div>
+
+        <div id="profile-polls">
+          <DisplayPolls polls={polls}/>
+        </div>
       </div>
     );
   } else {

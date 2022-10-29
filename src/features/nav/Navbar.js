@@ -77,6 +77,14 @@ export default function Navbar(props) {
 
         {props.user && <li>
           <NavLink
+            to="polls/new"
+            style={({ isActive }) =>
+              isActive ? activeStyle : undefined
+            }>Create Poll</NavLink>
+        </li>}
+
+        {props.user && <li>
+          <NavLink
             to={`users/${props.user._id}`}
             style={({ isActive }) =>
               isActive ? activeStyle : undefined
@@ -132,6 +140,14 @@ export default function Navbar(props) {
             style={({ isActive }) =>
               isActive ? activeStyle : undefined
             }>Login</NavLink>
+        </li>}
+
+        {props.user && <li>
+          <NavLink
+            to="polls/new"
+            style={({ isActive }) =>
+              isActive ? activeStyle : undefined
+            }>Create Poll</NavLink>
         </li>}
 
         {props.user && <li>

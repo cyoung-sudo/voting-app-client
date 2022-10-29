@@ -2,7 +2,7 @@ import "./Form.css";
 
 export default function Form(props) {
   return (
-    <form className="form">
+    <form className="form" onSubmit={e => props.submit(e)}>
       <div className="form-group">
         <label htmlFor="form-username">Username</label>
         <input 
@@ -22,7 +22,7 @@ export default function Form(props) {
       </div>
 
       <div className="form-submit">
-        <button onClick={props.submit}>Submit</button>
+        <input type="submit" value="Submit"/>
       </div>
     </form>
   );

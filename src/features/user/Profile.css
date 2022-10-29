@@ -1,0 +1,30 @@
+#profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 3rem 0;
+}
+
+#profile-header {
+  margin-bottom: 1rem;
+}
+
+#profile-polls {
+  width: 100%;
+}
+
+/* ----- Breakpoints ----- */
+/* Medium screen devices (768px and above) */
+@media only screen and (min-width: 768px) {
+  #profile-polls {
+    width: 80%;
+  }
+}
+ 
+/* Extra big screen devices (1200px and above) */
+@media only screen and (min-width: 1200px) {
+  #profile-polls {
+    width: 60%;
+  }
+}
+/* ----- /Breakpoints ----- */
