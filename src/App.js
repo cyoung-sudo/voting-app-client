@@ -14,12 +14,18 @@ import CreatePoll from "./features/poll/CreatePoll";
 import ShowPoll from "./features/poll/ShowPoll";
 import Navbar from "./features/nav/Navbar";
 import Footer from "./features/nav/Footer";
+// Components
+import Loading from "./components/general/Loading";
+// Utils
+import ProtectedRoute from "./utils/ProtectedRoute";
 
 function App() {
   // Requested data
   const [user, setUser] = useState(null);
+  // Loading status
+  const [loading, setLoading] = useState(true);
 
-  // Check session status on refresh
+  // Check session status on load
   useEffect(() => {
     axios({
       method: "get",
@@ -30,38 +36,46 @@ function App() {
       if(res.data.success) {
         setUser(res.data.user);
       }
+      setLoading(false);
     })
     .catch(err => console.log(err));
   }, []);
 
-  return (
-    <div id="app">
-      <Navbar 
-        user={user}
-        setUser={setUser}/>
-
-      <div id="app-content">
-        <Routes>
-          <Route path="/" element={<AllPolls/>}/>
-          <Route path="signup" element={<Signup/>}/>
-          <Route path="login" element={<Login setUser={setUser}/>}/>
-
-          <Route path="users">
-            <Route index element={<AllUsers/>}/>
-            <Route path=":id" element={<Profile/>}/>
-          </Route>
-
-          <Route path="polls">
-            <Route index element={<AllPolls/>}/>
-            <Route path="new" element={<CreatePoll user={user}/>}/>
-            <Route path=":id" element={<ShowPoll/>}/>
-          </Route>
-        </Routes>
+  if(!loading) {
+    return (
+      <div id="app">
+        <Navbar 
+          user={user}
+          setUser={setUser}/>
+  
+        <div id="app-content">
+          <Routes>
+            <Route path="/" element={<AllPolls/>}/>
+            <Route path="signup" element={<Signup/>}/>
+            <Route path="login" element={<Login setUser={setUser}/>}/>
+  
+            <Route path="users">
+              <Route index element={<AllUsers/>}/>
+              <Route path=":id" element={<Profile/>}/>
+            </Route>
+  
+            <Route path="polls">
+              <Route index element={<AllPolls/>}/>
+              <Route path="new" element={
+                <ProtectedRoute user={user}>
+                  <CreatePoll user={user}/>
+                </ProtectedRoute>}/>
+              <Route path=":id" element={<ShowPoll/>}/>
+            </Route>
+          </Routes>
+        </div>
+  
+        <Footer/>
       </div>
-
-      <Footer/>
-    </div>
-  );
+    );
+  } else {
+    return <Loading/>;
+  }
 };
 
 export default App;
