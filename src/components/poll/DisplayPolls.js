@@ -1,4 +1,6 @@
 import "./DisplayPolls.css";
+// Routing
+import { Link } from "react-router-dom";
 
 export default function DisplayPolls(props) {
   if(props.polls.length > 0) {
@@ -10,11 +12,14 @@ export default function DisplayPolls(props) {
             <ul className="displayPolls-options">
               {poll.options.map((option, idx) => (
                 <li key={idx}>
-                  <div>{option.option}</div>
+                  <div>{option.value}</div>
                   <div>Votes: {option.votes}</div>
                 </li>
               ))}
             </ul>
+            <Link className="displayPolls-view" to={`/polls/${poll._id}`}>
+              View Poll
+            </Link>
           </li>
         ))}
       </ul>

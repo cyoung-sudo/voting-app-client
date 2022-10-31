@@ -75,11 +75,6 @@ export default function CreatePoll(props) {
 
         <div className="createPoll-form-group">
           <label htmlFor="createPoll-form-expiration">Expiration</label>
-          {/* <input 
-            onChange={e => setExpiration(e.target.value)}
-            type="text" 
-            id="createPoll-form-expiration"
-            placeholder="expiration"/> */}
           <div className="createPoll-form-expiration-wrapper">
             <DatePicker 
               onChange={date => setExpiration(date)}

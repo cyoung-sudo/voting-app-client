@@ -1,0 +1,100 @@
+#showPoll {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 3rem 0;
+}
+
+#showPoll-header {
+  margin-bottom: 1rem;
+}
+
+/*----- Form -----*/
+#showPoll-form {
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  background-color: var(--light-color);
+}
+
+.showPoll-form-group {
+  margin-bottom: 0.5rem;
+}
+
+.showPoll-form-group input {
+  margin-right: 0.5rem;
+}
+
+.showPoll-form-submit {
+  text-align: center;
+}
+
+.showPoll-form-submit input {
+  padding: 0.5rem 0.7rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: var(--theme-color);
+  color: white;
+  font-size: var(--default-font);
+}
+
+.showPoll-form-submit input:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+/*----- /Form -----*/
+
+#showPoll-chart-ctrs button {
+  margin-bottom: 1rem;
+  padding: 0.5rem 0.7rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: var(--theme-color);
+  color: white;
+  font-size: var(--default-font);
+}
+
+#showPoll-chart-ctrs button span {
+  position: relative;
+  top: 2px;
+  right: 3px;
+}
+
+#showPoll-chart-ctrs button:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/*----- Chart -----*/
+#showPoll-chart {
+  height: max(50vh, 50vw);
+  width: 100vw;
+  margin-right: 2rem;
+  text-align: center;
+}
+/*----- /Chart -----*/
+
+/* ----- Breakpoints ----- */
+/* Medium screen devices (768px and above) */
+@media only screen and (min-width: 768px) {
+  #showPoll-form {
+    width: 70%;
+  }
+
+  #showPoll-chart {
+    width: 80vw;
+  }
+}
+ 
+/* Extra big screen devices (1200px and above) */
+@media only screen and (min-width: 1200px) {
+  #showPoll-form {
+    width: 50%;
+  }
+
+  #showPoll-chart {
+    width: 60vw;
+  }
+}
+/* ----- /Breakpoints ----- */

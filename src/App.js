@@ -11,6 +11,7 @@ import Profile from "./features/user/Profile";
 import AllUsers from "./features/user/AllUsers";
 import AllPolls from "./features/poll/AllPolls";
 import CreatePoll from "./features/poll/CreatePoll";
+import ShowPoll from "./features/poll/ShowPoll";
 import Navbar from "./features/nav/Navbar";
 import Footer from "./features/nav/Footer";
 
@@ -47,12 +48,13 @@ function App() {
 
           <Route path="users">
             <Route index element={<AllUsers/>}/>
-            <Route path=":id" element={<Profile/>} />
+            <Route path=":id" element={<Profile/>}/>
           </Route>
 
           <Route path="polls">
             <Route index element={<AllPolls/>}/>
-            <Route path="new" element={<CreatePoll user={user}/>} />
+            <Route path="new" element={<CreatePoll user={user}/>}/>
+            <Route path=":id" element={<ShowPoll/>}/>
           </Route>
         </Routes>
       </div>

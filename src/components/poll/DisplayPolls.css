@@ -7,6 +7,8 @@
 }
 
 .displayPolls-poll {
+  display: flex;
+  flex-direction: column;
   padding: 1rem;
   border-radius: 0.5rem;
   background-color: var(--light-dark-color);
@@ -24,6 +26,7 @@
 }
 
 .displayPolls-options {
+  margin-bottom: 1rem;
   padding: 1rem;
   border-radius: 0.5rem;
   background-color: var(--light-dark-color);
@@ -33,6 +36,21 @@
 /* Exclude last item */
 .displayPolls-options li:not(:last-child) {
   margin-bottom: 1rem;
+}
+
+.displayPolls-view {
+  display: inline-block;
+  margin: 0 auto;
+  padding: 0.5rem 0.7rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: var(--theme-color);
+  color: white;
+  text-decoration: none;
+}
+
+.displayPolls-view:hover {
+  text-decoration: underline;
 }
 
 #displayPolls-empty {
