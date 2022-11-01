@@ -65,7 +65,7 @@ function App() {
                 <ProtectedRoute user={user}>
                   <CreatePoll user={user}/>
                 </ProtectedRoute>}/>
-              <Route path=":id" element={<ShowPoll/>}/>
+              <Route path=":id" element={<ShowPoll user={user}/>}/>
             </Route>
           </Routes>
         </div>

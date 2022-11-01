@@ -9,8 +9,8 @@
   margin-bottom: 1rem;
 }
 
-/*----- Form -----*/
-#showPoll-form {
+/*----- Voting Form -----*/
+#showPoll-votingForm {
   width: 100%;
   margin-bottom: 1rem;
   padding: 2rem;
@@ -18,19 +18,19 @@
   background-color: var(--light-color);
 }
 
-.showPoll-form-group {
+.showPoll-votingForm-group {
   margin-bottom: 0.5rem;
 }
 
-.showPoll-form-group input {
+.showPoll-votingForm-group input {
   margin-right: 0.5rem;
 }
 
-.showPoll-form-submit {
+.showPoll-votingForm-submit {
   text-align: center;
 }
 
-.showPoll-form-submit input {
+.showPoll-votingForm-submit input {
   padding: 0.5rem 0.7rem;
   border: none;
   border-radius: 0.5rem;
@@ -39,11 +39,61 @@
   font-size: var(--default-font);
 }
 
-.showPoll-form-submit input:hover {
+.showPoll-votingForm-submit input:hover {
   cursor: pointer;
   text-decoration: underline;
 }
-/*----- /Form -----*/
+/*----- /Voting Form -----*/
+
+/*----- Option Form -----*/
+#showPoll-optionForm {
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 2rem 0;
+  border-radius: 0.5rem;
+  background-color: var(--light-color);
+}
+
+.showPoll-optionForm-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.showPoll-optionForm-group label {
+  width: 90%;
+  margin: 0 auto;
+  padding: 0 0 0.5rem 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.showPoll-optionForm-group input {
+  width: 90%;
+  margin: 0 auto;
+  padding: 0.5rem;
+  border: 1px solid gray;
+  border-radius: 0.5rem;
+  font-size: var(--default-font);
+}
+
+.showPoll-optionForm-submit {
+  text-align: center;
+}
+
+.showPoll-optionForm-submit input {
+  padding: 0.5rem 0.7rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: var(--theme-color);
+  color: white;
+  font-size: var(--default-font);
+}
+
+.showPoll-optionForm-submit input:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+/*----- /Option Form -----*/
 
 #showPoll-chart-ctrs button {
   margin-bottom: 1rem;
@@ -78,7 +128,8 @@
 /* ----- Breakpoints ----- */
 /* Medium screen devices (768px and above) */
 @media only screen and (min-width: 768px) {
-  #showPoll-form {
+  #showPoll-votingForm,
+  #showPoll-optionForm {
     width: 70%;
   }
 
@@ -89,7 +140,8 @@
  
 /* Extra big screen devices (1200px and above) */
 @media only screen and (min-width: 1200px) {
-  #showPoll-form {
+  #showPoll-votingForm,
+  #showPoll-optionForm {
     width: 50%;
   }
 

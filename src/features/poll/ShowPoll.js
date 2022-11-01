@@ -14,10 +14,14 @@ import { FiRefreshCw } from "react-icons/fi";
 export default function ShowPoll(props) {
   // Requested data
   const [poll, setPoll] = useState(null);
+  const [owner, setOwner] = useState(false);
   // Controlled input
   const [choice, setChoice] = useState("");
+  const [newOption, setNewOption] = useState("");
   // Manual refresh
   const [refresh, setRefresh] = useState(false);
+  // Loading status
+  const [loading, setLoading] = useState(true);
   // Hooks
   let { id } = useParams();
 
@@ -32,9 +36,14 @@ export default function ShowPoll(props) {
     .then(res => {
       if(res.data.success) {
         setPoll(res.data.poll);
+        // Check if user is poll owner
+        if((props.user) && (res.data.poll.userId === props.user._id)) {
+          setOwner(true);
+        }
       } else {
         console.log("Poll not found");
       }
+      setLoading(false);
     })
     .catch(err => console.log(err));
   }, [refresh]);
@@ -65,17 +74,43 @@ export default function ShowPoll(props) {
     }
   };
 
-  if(poll) {
+  // Handle option form submission
+  const handleOption = e => {
+    // Prevent refresh on submit
+    e.preventDefault();
+    // Validations
+    if(newOption === "") {
+      console.log("No option given");
+    } else {
+      axios({
+        method: "put",
+        data: { 
+          id,
+          newOption 
+        },
+        withCredentials: true,
+        url: "/api/polls/option"
+      })
+      .then(res => {
+        if(res.data.success) {
+          console.log("Option added");
+        }
+      })
+      .catch(err => console.log(err));
+    }
+  };
+
+  if(!loading) {
     return (
       <div id="showPoll">
         <div id="showPoll-header">
           <h1>{poll.topic}</h1>
         </div>
 
-        {/*----- Form -----*/}
-        <form id="showPoll-form" onSubmit={handleChoice}>
+        {/*----- Voting Form -----*/}
+        <form id="showPoll-votingForm" onSubmit={handleChoice}>
           {poll.options.map((option, idx) => (
-            <div className="showPoll-form-group" key={idx}>
+            <div className="showPoll-votingForm-group" key={idx}>
               <label>
                 <input
                   type="radio"
@@ -88,11 +123,28 @@ export default function ShowPoll(props) {
               </label>
             </div>
           ))}
-          <div className="showPoll-form-submit">
+          <div className="showPoll-votingForm-submit">
             <input type="submit" value="Submit Vote"/>
           </div>
         </form>
-        {/*----- /Form -----*/}
+        {/*----- /Voting Form -----*/}
+
+        {/*----- Option Form -----*/}
+        {owner && <form id="showPoll-optionForm" onSubmit={handleOption}>
+          <div className="showPoll-optionForm-group">
+            <label htmlFor="showPoll-optionForm-option">New Option</label>
+            <input 
+              onChange={e => setNewOption(e.target.value)}
+              type="text" 
+              id="showPoll-optionForm-option"
+              placeholder="option"/>
+          </div>
+
+          <div className="showPoll-optionForm-submit">
+            <input type="submit" value="Add Option"/>
+          </div>
+        </form>}
+        {/*----- /Option Form -----*/}
 
         <div id="showPoll-chart-ctrs">
           <button onClick={() => setRefresh(refresh => !refresh)}><span><FiRefreshCw/></span>Refresh Data</button>
@@ -114,7 +166,7 @@ export default function ShowPoll(props) {
               <XAxis dataKey="value" />
               <YAxis 
                 allowDecimals={false}
-                domain={["dataMin", "dataMax + 1"]} />
+                domain={[0, "dataMax + 1"]} />
               <Tooltip />
               <Legend />
               <Bar dataKey="votes" fill="#8884d8" />
