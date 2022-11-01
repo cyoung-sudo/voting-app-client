@@ -3,13 +3,14 @@ import axios from "axios";
 // React
 import { useState, useEffect } from "react";
 // Router
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 // Components
 import Loading from "../../components/general/Loading";
 // Chart
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 // Icons
 import { FiRefreshCw } from "react-icons/fi";
+import { BsTrashFill } from "react-icons/bs";
 
 export default function ShowPoll(props) {
   // Requested data
@@ -23,7 +24,8 @@ export default function ShowPoll(props) {
   // Loading status
   const [loading, setLoading] = useState(true);
   // Hooks
-  let { id } = useParams();
+  const { id } = useParams();
+  const navigate = useNavigate();
 
   // Request for poll on load
   useEffect(() => {
@@ -89,7 +91,7 @@ export default function ShowPoll(props) {
           newOption 
         },
         withCredentials: true,
-        url: "/api/polls/option"
+        url: "/api/poll/option"
       })
       .then(res => {
         if(res.data.success) {
@@ -99,6 +101,26 @@ export default function ShowPoll(props) {
       .catch(err => console.log(err));
     }
   };
+
+  // Handle deleting poll
+  const handleDelete = () => {
+    let result = window.confirm("Are you sure you want to delete this poll?");
+    if(result) {
+      axios({
+        method: "delete",
+        data: { id },
+        withCredentials: true,
+        url: "/api/poll"
+      })
+      .then(res => {
+        if(res.data.success) {
+          console.log("Poll deleted");
+          navigate(`/users/${poll.userId}`);
+        }
+      })
+      .catch(err => console.log(err));
+    }
+  }
 
   if(!loading) {
     return (
@@ -146,10 +168,6 @@ export default function ShowPoll(props) {
         </form>}
         {/*----- /Option Form -----*/}
 
-        <div id="showPoll-chart-ctrs">
-          <button onClick={() => setRefresh(refresh => !refresh)}><span><FiRefreshCw/></span>Refresh Data</button>
-        </div>
-
         {/*----- Chart -----*/}
         <div id="showPoll-chart">
           <ResponsiveContainer width="100%" height="100%">
@@ -174,6 +192,17 @@ export default function ShowPoll(props) {
           </ResponsiveContainer>
         </div>
         {/*----- /Chart -----*/}
+
+        {/*----- Controls -----*/}
+        <div id="showPoll-ctrs">
+          <button onClick={() => setRefresh(refresh => !refresh)} className="showPoll-ctrs-refresh">
+            <span><FiRefreshCw/></span>Refresh
+          </button>
+          {owner && <button onClick={handleDelete} className="showPoll-ctrs-delete">
+            <span><BsTrashFill/></span>Delete
+          </button>}
+        </div>
+        {/*----- /Controls -----*/}
       </div>
     );
   } else {

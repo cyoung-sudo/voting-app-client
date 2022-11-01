@@ -95,35 +95,44 @@
 }
 /*----- /Option Form -----*/
 
-#showPoll-chart-ctrs button {
-  margin-bottom: 1rem;
+/*----- Chart -----*/
+#showPoll-chart {
+  height: max(50vh, 50vw);
+  width: 100vw;
+  margin: 0 2rem 1rem 0;
+  text-align: center;
+}
+/*----- /Chart -----*/
+
+/*----- Controls -----*/
+#showPoll-ctrs button {
+  margin: 0 0.5rem 1rem 0.5rem;
   padding: 0.5rem 0.7rem;
   border: none;
   border-radius: 0.5rem;
-  background-color: var(--theme-color);
   color: white;
   font-size: var(--default-font);
 }
 
-#showPoll-chart-ctrs button span {
+#showPoll-ctrs button span {
   position: relative;
   top: 2px;
   right: 3px;
 }
 
-#showPoll-chart-ctrs button:hover {
+#showPoll-ctrs button:hover {
   cursor: pointer;
   text-decoration: underline;
 }
 
-/*----- Chart -----*/
-#showPoll-chart {
-  height: max(50vh, 50vw);
-  width: 100vw;
-  margin-right: 2rem;
-  text-align: center;
+.showPoll-ctrs-refresh {
+  background-color: var(--theme-color);
 }
-/*----- /Chart -----*/
+
+.showPoll-ctrs-delete {
+  background-color: crimson;
+}
+/*----- /Controls -----*/
 
 /* ----- Breakpoints ----- */
 /* Medium screen devices (768px and above) */
