@@ -11,6 +11,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsive
 // Icons
 import { FiRefreshCw } from "react-icons/fi";
 import { BsTrashFill } from "react-icons/bs";
+import { AiFillLock, AiFillUnlock } from "react-icons/ai";
 
 export default function ShowPoll(props) {
   // Requested data
@@ -122,15 +123,37 @@ export default function ShowPoll(props) {
     }
   }
 
+  // Handle changing poll status
+  const handleStatus = status => {
+    axios({
+      method: "put",
+      data: { 
+        id,
+        status 
+      },
+      withCredentials: true,
+      url: "/api/poll/status"
+    })
+    .then(res => {
+      if(res.data.success) {
+        console.log("Poll status changed");
+      }
+    })
+    .catch(err => console.log(err));
+  };
+
   if(!loading) {
     return (
       <div id="showPoll">
         <div id="showPoll-header">
           <h1>{poll.topic}</h1>
+          <div className="showPoll-status">
+            Status: {poll.closed ? "closed" : "open"}
+          </div>
         </div>
 
         {/*----- Voting Form -----*/}
-        <form id="showPoll-votingForm" onSubmit={handleChoice}>
+        {(!poll.closed) && <form id="showPoll-votingForm" onSubmit={handleChoice}>
           {poll.options.map((option, idx) => (
             <div className="showPoll-votingForm-group" key={idx}>
               <label>
@@ -148,11 +171,11 @@ export default function ShowPoll(props) {
           <div className="showPoll-votingForm-submit">
             <input type="submit" value="Submit Vote"/>
           </div>
-        </form>
+        </form>}
         {/*----- /Voting Form -----*/}
 
         {/*----- Option Form -----*/}
-        {owner && <form id="showPoll-optionForm" onSubmit={handleOption}>
+        {owner && (!poll.closed) && <form id="showPoll-optionForm" onSubmit={handleOption}>
           <div className="showPoll-optionForm-group">
             <label htmlFor="showPoll-optionForm-option">New Option</label>
             <input 
@@ -198,6 +221,12 @@ export default function ShowPoll(props) {
           <button onClick={() => setRefresh(refresh => !refresh)} className="showPoll-ctrs-refresh">
             <span><FiRefreshCw/></span>Refresh
           </button>
+          {owner && !poll.closed && <button onClick={() => handleStatus("close")} className="showPoll-ctrs-close">
+            <span><AiFillLock/></span>Close Poll
+          </button>}
+          {owner && poll.closed && <button onClick={() => handleStatus("open")} className="showPoll-ctrs-open">
+            <span><AiFillUnlock/></span>Open Poll
+          </button>}
           {owner && <button onClick={handleDelete} className="showPoll-ctrs-delete">
             <span><BsTrashFill/></span>Delete
           </button>}

@@ -1,18 +1,14 @@
 import "./CreatePoll.css";
-import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 // React
 import { useState } from "react";
 // Routing
 import { useNavigate } from "react-router-dom";
-// Date picker
-import DatePicker from "react-datepicker";
 
 export default function CreatePoll(props) {
   // Controlled inputs
   const [topic, setTopic] = useState("");
   const [options, setOptions] = useState("");
-  const [expiration, setExpiration] = useState(new Date());
   // Hooks
   const navigate = useNavigate();
 
@@ -25,15 +21,12 @@ export default function CreatePoll(props) {
       console.log("No topic given");
     } else if(options === "") {
       console.log("No options given");
-    } else if(expiration < new Date()) {
-      console.log("Given expiration has passed");
     } else {
       axios({
         method: "post",
         data: {
           topic,
-          options,
-          expiration
+          options
         },
         withCredentials: true,
         url: "/api/polls"
@@ -71,18 +64,6 @@ export default function CreatePoll(props) {
             type="text"
             id="createPoll-form-options"
             placeholder="options"/>
-        </div>
-
-        <div className="createPoll-form-group">
-          <label htmlFor="createPoll-form-expiration">Expiration</label>
-          <div className="createPoll-form-expiration-wrapper">
-            <DatePicker 
-              onChange={date => setExpiration(date)}
-              id="createPoll-form-expiration"
-              selected={expiration}
-              showTimeSelect
-              dateFormat="Pp"/>
-          </div>
         </div>
 
         <div className="createPoll-form-submit">

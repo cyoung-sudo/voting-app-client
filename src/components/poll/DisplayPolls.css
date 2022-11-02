@@ -11,8 +11,15 @@
   flex-direction: column;
   padding: 1rem;
   border-radius: 0.5rem;
-  background-color: var(--light-dark-color);
   color: white;
+}
+
+.displayPolls-poll-open {
+  background-color: var(--light-dark-color);
+}
+
+.displayPolls-poll-closed {
+  background-color: var(--error-color);
 }
 
 /* Exclude last item */
@@ -21,8 +28,16 @@
 }
 
 .displayPolls-topic {
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.displayPolls-status {
   margin-bottom: 1rem;
   text-align: center;
+  font-weight: 300;
+  font-style: italic;
 }
 
 .displayPolls-options {

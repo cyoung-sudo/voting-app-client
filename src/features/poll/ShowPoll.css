@@ -2,11 +2,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 3rem 0;
+  padding: 3rem 0;
+  height: 100%;
 }
 
 #showPoll-header {
   margin-bottom: 1rem;
+}
+
+.showPoll-status {
+  text-align: center;
+  font-weight: 300;
 }
 
 /*----- Voting Form -----*/
@@ -125,12 +131,14 @@
   text-decoration: underline;
 }
 
-.showPoll-ctrs-refresh {
+.showPoll-ctrs-refresh,
+.showPoll-ctrs-close,
+.showPoll-ctrs-open {
   background-color: var(--theme-color);
 }
 
 .showPoll-ctrs-delete {
-  background-color: crimson;
+  background-color: var(--error-color);
 }
 /*----- /Controls -----*/
 

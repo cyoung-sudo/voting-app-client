@@ -7,8 +7,9 @@ export default function DisplayPolls(props) {
     return (
       <ul className="displayPolls">
         {props.polls.map((poll, idx) => (
-          <li className="displayPolls-poll" key={idx}>
+          <li className={`displayPolls-poll ${poll.closed ? "displayPolls-poll-closed" : "displayPolls-poll-open"}`} key={idx}>
             <div className="displayPolls-topic">{poll.topic}</div>
+            <div className="displayPolls-status">Status: {poll.closed ? "closed" : "open"}</div>
             <ul className="displayPolls-options">
               {poll.options.map((option, idx) => (
                 <li key={idx}>
