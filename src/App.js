@@ -8,6 +8,7 @@ import { Routes, Route } from "react-router-dom";
 import Signup from "./features/auth/Signup";
 import Login from "./features/auth/Login";
 import Profile from "./features/user/Profile";
+import Settings from "./features/user/Settings";
 import AllUsers from "./features/user/AllUsers";
 import AllPolls from "./features/poll/AllPolls";
 import CreatePoll from "./features/poll/CreatePoll";
@@ -57,6 +58,10 @@ function App() {
             <Route path="users">
               <Route index element={<AllUsers/>}/>
               <Route path=":id" element={<Profile/>}/>
+              <Route path="settings" element={
+                <ProtectedRoute user={user}>
+                  <Settings/>
+                </ProtectedRoute>}/>
             </Route>
   
             <Route path="polls">

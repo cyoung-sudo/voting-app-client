@@ -92,6 +92,14 @@ export default function Navbar(props) {
         </li>}
 
         {props.user && <li>
+          <NavLink
+            to="users/settings"
+            style={({ isActive }) =>
+              isActive ? activeStyle : undefined
+            }>Settings</NavLink>
+        </li>}
+
+        {props.user && <li>
           <button onClick={handleLogout}>Logout</button>
         </li>}
       </ul>
@@ -156,6 +164,14 @@ export default function Navbar(props) {
             style={({ isActive }) =>
               isActive ? activeStyle : undefined
             }>Profile</NavLink>
+        </li>}
+
+        {props.user && <li>
+          <NavLink
+            to="users/settings"
+            style={({ isActive }) =>
+              isActive ? activeStyle : undefined
+            }>Settings</NavLink>
         </li>}
 
         {props.user && <li>

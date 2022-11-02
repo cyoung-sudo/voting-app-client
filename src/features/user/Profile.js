@@ -15,7 +15,7 @@ export default function Profile(props) {
   // Hooks
   let { id } = useParams();
 
-  // Request for user on load
+  // Request for user & polls on load
   useEffect(() => {
     axios({
       method: "post",
@@ -30,10 +30,10 @@ export default function Profile(props) {
 
       return axios({
         method: "post",
-        data: { id: res.data.user._id },
+        data: { id },
         withCredentials: true,
         url: "/api/polls/user"
-      })
+      });
     })
     .then(res => {
       if(res.data.success) {

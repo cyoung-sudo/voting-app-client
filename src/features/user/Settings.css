@@ -1,0 +1,48 @@
+#settings {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem 0;
+}
+
+#settings-header {
+  margin-bottom: 1rem;
+}
+
+#settings-options {
+  width: 100%;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  background-color: var(--light-color);
+  list-style: none;
+}
+
+.settings-option {
+  display: flex;
+  justify-content: space-between;
+}
+
+.settings-option button {
+  padding: 0.5rem 0.7rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: var(--error-color);
+  color: white;
+  font-size: var(--default-font);
+}
+
+/* ----- Breakpoints ----- */
+/* Medium screen devices (768px and above) */
+@media only screen and (min-width: 768px) {
+  #settings-options {
+    width: 70%;
+  }
+}
+ 
+/* Extra big screen devices (1200px and above) */
+@media only screen and (min-width: 1200px) {
+  #settings-options {
+    width: 50%;
+  }
+}
+/* ----- /Breakpoints ----- */
