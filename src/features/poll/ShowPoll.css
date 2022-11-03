@@ -2,12 +2,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 3rem 0;
-  height: 100%;
 }
 
 #showPoll-header {
   margin-bottom: 1rem;
+  text-align: center;
 }
 
 .showPoll-status {

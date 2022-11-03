@@ -17,10 +17,6 @@ export default function Settings(props) {
         url: "/api/user"
       })
       .then(res => {
-        if(res.data.success) {
-          console.log("Account deleted");
-        }
-
         return axios({
           method: "post",
           withCredentials: true,
@@ -29,7 +25,7 @@ export default function Settings(props) {
       })
       .then(res => {
         if(res.data.success) {
-          console.log("Logged out");
+          props.handlePopUp("Account deleted", "success");
           // Reset user state
           props.setUser(null);
           // Redirect to root route

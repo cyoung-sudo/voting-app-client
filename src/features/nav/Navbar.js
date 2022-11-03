@@ -19,7 +19,7 @@ export default function Navbar(props) {
     })
     .then(res => {
       if(res.data.success) {
-        console.log("Logged out");
+        props.handlePopUp("Successfully logged out", "success");
         props.setUser(null);
         // Redirect to root route
         navigate("/");

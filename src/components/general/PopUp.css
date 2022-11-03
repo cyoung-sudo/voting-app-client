@@ -1,0 +1,20 @@
+#popUp {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+#popUp-message {
+  padding: 0.7rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.popUp-success {
+  background-color: var(--popUp-success-color);
+}
+
+.popUp-error {
+  background-color: var(--popUp-error-color);
+}

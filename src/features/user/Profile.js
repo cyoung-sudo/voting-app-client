@@ -41,7 +41,7 @@ export default function Profile(props) {
         })
         .catch(err => console.log(err));
       } else {
-        console.log("User not found");
+        props.handlePopUp("User not found", "error");
         // Redirect to root route
         navigate("/");
       }

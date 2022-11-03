@@ -44,7 +44,7 @@ export default function ShowPoll(props) {
           setOwner(true);
         }
       } else {
-        console.log("Poll not found");
+        props.handlePopUp("Poll not found", "error");
         // Redirect to root route
         navigate("/");
       }
@@ -59,7 +59,7 @@ export default function ShowPoll(props) {
     e.preventDefault();
     // Validations
     if(choice === "") {
-      console.log("No option selected");
+      props.handlePopUp("No option selected", "error");
     } else {
       axios({
         method: "put",
@@ -72,7 +72,7 @@ export default function ShowPoll(props) {
       })
       .then(res => {
         if(res.data.success) {
-          console.log("Success");
+          props.handlePopUp("Successfully voted", "success");
         }
       })
       .catch(err=> console.log(err));
@@ -85,7 +85,7 @@ export default function ShowPoll(props) {
     e.preventDefault();
     // Validations
     if(newOption === "") {
-      console.log("No option given");
+      props.handlePopUp("No option(s) given", "error");
     } else {
       axios({
         method: "put",
@@ -98,7 +98,7 @@ export default function ShowPoll(props) {
       })
       .then(res => {
         if(res.data.success) {
-          console.log("Option added");
+          props.handlePopUp("Option(s) added", "success");
         }
       })
       .catch(err => console.log(err));
@@ -117,7 +117,7 @@ export default function ShowPoll(props) {
       })
       .then(res => {
         if(res.data.success) {
-          console.log("Poll deleted");
+          props.handlePopUp("Poll deleted", "success");
           navigate(`/users/${poll.userId}`);
         }
       })
@@ -138,10 +138,16 @@ export default function ShowPoll(props) {
     })
     .then(res => {
       if(res.data.success) {
-        console.log("Poll status changed");
+        props.handlePopUp("Poll status changed", "success");
       }
     })
     .catch(err => console.log(err));
+  };
+
+  // Handle page refresh
+  const handleRefresh = () => {
+    setRefresh(state => !state);
+    props.handlePopUp("Data refreshed", "success");
   };
 
   if(!loading) {
@@ -220,7 +226,7 @@ export default function ShowPoll(props) {
 
         {/*----- Controls -----*/}
         <div id="showPoll-ctrs">
-          <button onClick={() => setRefresh(refresh => !refresh)} className="showPoll-ctrs-refresh">
+          <button onClick={handleRefresh} className="showPoll-ctrs-refresh">
             <span><FiRefreshCw/></span>Refresh
           </button>
           {owner && !poll.closed && <button onClick={() => handleStatus("close")} className="showPoll-ctrs-close">

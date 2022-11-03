@@ -18,9 +18,9 @@ export default function CreatePoll(props) {
     e.preventDefault();
     // Validations
     if(topic === "") {
-      console.log("No topic given");
+      props.handlePopUp("No topic given", "error");
     } else if(options === "") {
-      console.log("No options given");
+      props.handlePopUp("No option(s) given", "error");
     } else {
       axios({
         method: "post",
@@ -33,6 +33,7 @@ export default function CreatePoll(props) {
       })
       .then(res => {
         if(res.data.success) {
+          props.handlePopUp("Created poll", "success");
           // Redirect to profile route
           navigate(`/users/${props.user._id}`);
         }

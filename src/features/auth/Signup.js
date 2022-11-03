@@ -20,9 +20,9 @@ export default function Signup(props) {
     e.preventDefault();
     // Validations
     if(username === "") {
-      console.log("No username provided");
+      props.handlePopUp("No username given", "error");
     } else if(password === "") {
-      console.log("No password provided");
+      props.handlePopUp("No password given", "error");
     } else {
       axios({
         method: "post",
@@ -35,10 +35,11 @@ export default function Signup(props) {
       })
       .then(res => {
         if(res.data.success) {
+          props.handlePopUp("Successfully signed up");
           // Redirect to login route
           navigate("/login");
         } else {
-          console.log(res.data.message);
+          props.handlePopUp(res.data.message, "error");
         }
       })
       .catch(err => console.log(err));

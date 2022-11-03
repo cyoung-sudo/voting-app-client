@@ -17,6 +17,7 @@ import Navbar from "./features/nav/Navbar";
 import Footer from "./features/nav/Footer";
 // Components
 import Loading from "./components/general/Loading";
+import PopUp from "./components/general/PopUp";
 // Utils
 import ProtectedRoute from "./utils/ProtectedRoute";
 
@@ -25,6 +26,11 @@ function App() {
   const [user, setUser] = useState(null);
   // Loading status
   const [loading, setLoading] = useState(true);
+  // Popup
+  const [popUp, setPopUp] = useState("");
+  const [popUpType, setPopUpType] = useState("");
+  const [popUpDisplay, setPopUpDisplay] = useState(false);
+  const [popUpOverride, setPopUpOverride] = useState(false);
 
   // Check session status on load
   useEffect(() => {
@@ -42,36 +48,75 @@ function App() {
     .catch(err => console.log(err));
   }, []);
 
+  // Handle pop-ups
+  const handlePopUp = (message, type) => {
+    // Override existing pop-up
+    if(popUpDisplay) {
+      console.log("override");
+      setPopUpOverride(state => !state);
+    }
+    setPopUp(message);
+    setPopUpType(type);
+    setPopUpDisplay(true);
+    // Scroll to top of page
+    window.scrollTo(0, 0);
+  };
+
   if(!loading) {
     return (
       <div id="app">
         <Navbar 
           user={user}
-          setUser={setUser}/>
+          setUser={setUser}
+          handlePopUp={handlePopUp}/>
   
         <div id="app-content">
+          <PopUp 
+            message={popUp} 
+            type={popUpType}
+            popUpDisplay={popUpDisplay}
+            popUpOverride={popUpOverride}
+            setPopUpDisplay={setPopUpDisplay}/>
+
           <Routes>
             <Route path="/" element={<AllPolls/>}/>
-            <Route path="signup" element={<Signup/>}/>
-            <Route path="login" element={<Login setUser={setUser}/>}/>
+
+            {/*----- Auth Routes -----*/}
+            <Route path="signup" element={<Signup handlePopUp={handlePopUp}/>}/>
+            <Route path="login" element={
+              <Login 
+                setUser={setUser} 
+                handlePopUp={handlePopUp}/>}/>
+            {/*----- /Auth Routes -----*/}
   
+            {/*----- User Routes -----*/}
             <Route path="users">
               <Route index element={<AllUsers/>}/>
-              <Route path=":id" element={<Profile/>}/>
+              <Route path=":id" element={<Profile handlePopUp={handlePopUp}/>}/>
               <Route path="settings" element={
                 <ProtectedRoute user={user}>
-                  <Settings setUser={setUser}/>
+                  <Settings 
+                    setUser={setUser}
+                    handlePopUp={handlePopUp}/>
                 </ProtectedRoute>}/>
             </Route>
+            {/*----- /User Routes -----*/}
   
+            {/*----- Poll Routes -----*/}
             <Route path="polls">
               <Route index element={<AllPolls/>}/>
               <Route path="new" element={
                 <ProtectedRoute user={user}>
-                  <CreatePoll user={user}/>
+                  <CreatePoll 
+                    user={user}
+                    handlePopUp={handlePopUp}/>
                 </ProtectedRoute>}/>
-              <Route path=":id" element={<ShowPoll user={user}/>}/>
+              <Route path=":id" element={
+                <ShowPoll 
+                  user={user}
+                  handlePopUp={handlePopUp}/>}/>
             </Route>
+            {/*----- /Poll Routes -----*/}
           </Routes>
         </div>
   
