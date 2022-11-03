@@ -45,6 +45,8 @@ export default function ShowPoll(props) {
         }
       } else {
         console.log("Poll not found");
+        // Redirect to root route
+        navigate("/");
       }
       setLoading(false);
     })
