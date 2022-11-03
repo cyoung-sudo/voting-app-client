@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 // Components
 import Loading from "../../components/general/Loading";
+import PollCount from "../../components/user/PollCount";
 
 export default function AllUsers(props) {
   // Requested data
@@ -39,6 +40,9 @@ export default function AllUsers(props) {
               <Link className="allUsers-list-username" to={`/users/${user._id}`}>
                 {user.username}
               </Link>
+              <div className="allUsers-list-badges">
+                <PollCount id={user._id}/>
+              </div>
               <div>Joined: {new Date(user.createdAt).toDateString()}</div>
             </li>
           ))}

@@ -13,8 +13,7 @@ export default function DisplayPolls(props) {
             <ul className="displayPolls-options">
               {poll.options.map((option, idx) => (
                 <li key={idx}>
-                  <div>{option.value}</div>
-                  <div>Votes: {option.votes}</div>
+                  <div>({option.votes}) {option.value}</div>
                 </li>
               ))}
             </ul>

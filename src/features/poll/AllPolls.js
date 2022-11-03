@@ -29,7 +29,7 @@ export default function AllPolls(props) {
     return (
       <div id="allPolls">
         <div id="allPolls-header">
-          <h1>All Polls</h1>
+          <h1>Polls</h1>
         </div>
   
         <div id="allPolls-polls">
