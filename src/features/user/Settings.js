@@ -30,6 +30,8 @@ export default function Settings(props) {
       .then(res => {
         if(res.data.success) {
           console.log("Logged out");
+          // Reset user state
+          props.setUser(null);
           // Redirect to root route
           navigate("/");
         }

@@ -60,7 +60,7 @@ function App() {
               <Route path=":id" element={<Profile/>}/>
               <Route path="settings" element={
                 <ProtectedRoute user={user}>
-                  <Settings/>
+                  <Settings setUser={setUser}/>
                 </ProtectedRoute>}/>
             </Route>
   
