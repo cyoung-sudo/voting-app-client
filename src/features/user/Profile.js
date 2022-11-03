@@ -3,7 +3,7 @@ import axios from "axios";
 // React
 import { useState, useEffect } from "react";
 // Router
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 // Components
 import DisplayPolls from "../../components/poll/DisplayPolls";
 import Loading from "../../components/general/Loading";
@@ -13,7 +13,8 @@ export default function Profile(props) {
   const [user, setUser] = useState(null);
   const [polls, setPolls] = useState(null);
   // Hooks
-  let { id } = useParams();
+  const { id } = useParams();
+  const navigate = useNavigate();
 
   // Request for user & polls on load
   useEffect(() => {
@@ -25,19 +26,24 @@ export default function Profile(props) {
     })
     .then(res => {
       if(res.data.success) {
+        // Set user
         setUser(res.data.user);
-      }
-
-      return axios({
-        method: "post",
-        data: { id },
-        withCredentials: true,
-        url: "/api/polls/user"
-      });
-    })
-    .then(res => {
-      if(res.data.success) {
-        setPolls(res.data.polls)
+        axios({
+          method: "post",
+          data: { id },
+          withCredentials: true,
+          url: "/api/polls/user"
+        })
+        .then(res => {
+          if(res.data.success) {
+            setPolls(res.data.polls)
+          }
+        })
+        .catch(err => console.log(err));
+      } else {
+        console.log("User not found");
+        // Redirect to root route
+        navigate("/");
       }
     })
     .catch(err => console.log(err));
