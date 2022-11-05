@@ -1,10 +1,17 @@
+// React
+import { useEffect } from "react";
 // Routing
 import { Navigate } from "react-router-dom";
 
-export default function ProtectedRoute({ user, children }) {
-  if(!user) {
-    console.log("Session has expired");
+export default function ProtectedRoute(props) {
+  useEffect(() => {
+    if(!props.user) {
+      props.handlePopUp("Session has expired", "error");
+    }
+  }, [])
+
+  if(!props.user) {
     return <Navigate to="/" replace />;
   }
-  return children;
+  return props.children;
 };

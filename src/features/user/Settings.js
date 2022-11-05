@@ -17,16 +17,31 @@ export default function Settings(props) {
         url: "/api/user"
       })
       .then(res => {
-        return axios({
-          method: "post",
-          withCredentials: true,
-          url: "/api/auth/logout"
-        })
-      })
-      .then(res => {
         if(res.data.success) {
-          props.handlePopUp("Account deleted", "success");
-          // Reset user state
+          axios({
+            method: "post",
+            withCredentials: true,
+            url: "/api/auth/logout"
+          })
+          .then(res => {
+            if(res.data.success) {
+              props.handlePopUp("Account deleted", "success");
+              // Reset user state
+              props.setUser(null);
+              // Redirect to root route
+              navigate("/");
+            } else {
+              props.handlePopUp(res.data.message, "error");
+              // Reset user
+              props.setUser(null);
+              // Redirect to root route
+              navigate("/");
+            }
+          })
+          .catch(err => console.log(err));
+        } else {
+          props.handlePopUp(res.data.message, "error");
+          // Reset user
           props.setUser(null);
           // Redirect to root route
           navigate("/");

@@ -22,7 +22,7 @@ export default function PollCount(props) {
     .catch(err => console.log(err));
   }, []);
   
-  if(count) {
+  if(count !== null) {
     return (
       <div className="pollCount">
         Polls: {count}

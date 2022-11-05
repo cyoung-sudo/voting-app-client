@@ -99,6 +99,12 @@ export default function ShowPoll(props) {
       .then(res => {
         if(res.data.success) {
           props.handlePopUp("Option(s) added", "success");
+        } else {
+          props.handlePopUp(res.data.message, "error");
+          // Reset user
+          props.setUser(null);
+          // Redirect to root route
+          navigate("/");
         }
       })
       .catch(err => console.log(err));
@@ -119,6 +125,12 @@ export default function ShowPoll(props) {
         if(res.data.success) {
           props.handlePopUp("Poll deleted", "success");
           navigate(`/users/${poll.userId}`);
+        } else {
+          props.handlePopUp(res.data.message, "error");
+          // Reset user
+          props.setUser(null);
+          // Redirect to root route
+          navigate("/");
         }
       })
       .catch(err => console.log(err));
@@ -139,6 +151,12 @@ export default function ShowPoll(props) {
     .then(res => {
       if(res.data.success) {
         props.handlePopUp("Poll status changed", "success");
+      } else {
+        props.handlePopUp(res.data.message, "error");
+        // Reset user
+        props.setUser(null);
+        // Redirect to root route
+        navigate("/");
       }
     })
     .catch(err => console.log(err));

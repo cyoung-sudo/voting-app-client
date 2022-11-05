@@ -36,6 +36,12 @@ export default function CreatePoll(props) {
           props.handlePopUp("Created poll", "success");
           // Redirect to profile route
           navigate(`/users/${props.user._id}`);
+        } else {
+          props.handlePopUp(res.data.message, "error");
+          // Reset user
+          props.setUser(null);
+          // Redirect to root route
+          navigate("/");
         }
       })
       .catch(err => console.log(err));

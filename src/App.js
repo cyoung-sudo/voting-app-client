@@ -94,7 +94,9 @@ function App() {
               <Route index element={<AllUsers/>}/>
               <Route path=":id" element={<Profile handlePopUp={handlePopUp}/>}/>
               <Route path="settings" element={
-                <ProtectedRoute user={user}>
+                <ProtectedRoute 
+                  user={user} 
+                  handlePopUp={handlePopUp}>
                   <Settings 
                     setUser={setUser}
                     handlePopUp={handlePopUp}/>
@@ -106,14 +108,18 @@ function App() {
             <Route path="polls">
               <Route index element={<AllPolls/>}/>
               <Route path="new" element={
-                <ProtectedRoute user={user}>
+                <ProtectedRoute 
+                  user={user}
+                  handlePopUp={handlePopUp}>
                   <CreatePoll 
                     user={user}
+                    setUser={setUser}
                     handlePopUp={handlePopUp}/>
                 </ProtectedRoute>}/>
               <Route path=":id" element={
                 <ShowPoll 
                   user={user}
+                  setUser={setUser}
                   handlePopUp={handlePopUp}/>}/>
             </Route>
             {/*----- /Poll Routes -----*/}
