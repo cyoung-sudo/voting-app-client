@@ -7,10 +7,14 @@ import { Link } from "react-router-dom";
 // Components
 import Loading from "../../components/general/Loading";
 import PollCount from "../../components/user/PollCount";
+// Utils
+import { sortByDate } from "../../utils/Sorting";
 
 export default function AllUsers(props) {
   // Requested data
   const [users, setUsers] = useState(null);
+  // Sorting
+  const [sortMode, setSortMode] = useState("newest");
 
   // Request for all users on load
   useEffect(() => {
@@ -27,11 +31,23 @@ export default function AllUsers(props) {
     .catch(err => console.log(err));
   }, []);
 
+  // Switch sorting mode
+  useEffect(() => {
+    if(users) {
+      setUsers(sortByDate([...users], sortMode));
+    }
+  }, [sortMode]);
+
   if(users) {
     return (
       <div id="allUsers">
         <div id="allUsers-header">
           <h1>Users</h1>
+        </div>
+
+        <div id="allUsers-sort">
+          <button onClick={() => setSortMode("newest")}>Newest</button>
+          <button onClick={() => setSortMode("oldest")}>Oldest</button>
         </div>
   
         <ul id="allUsers-list">
@@ -43,7 +59,7 @@ export default function AllUsers(props) {
               <div className="allUsers-list-badges">
                 <PollCount id={user._id}/>
               </div>
-              <div>Joined: {new Date(user.createdAt).toDateString()}</div>
+              <div className="allUsers-list-date">Joined on: {new Date(user.createdAt).toDateString()}</div>
             </li>
           ))}
         </ul>

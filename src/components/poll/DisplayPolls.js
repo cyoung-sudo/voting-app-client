@@ -17,6 +17,7 @@ export default function DisplayPolls(props) {
                 </li>
               ))}
             </ul>
+            <div className="displayPolls-date">Created on: {new Date(poll.createdAt).toDateString()}</div>
             <Link className="displayPolls-view" to={`/polls/${poll._id}`}>
               View Poll
             </Link>

@@ -53,6 +53,13 @@
   margin-bottom: 1rem;
 }
 
+.displayPolls-date {
+  margin-bottom: 1rem;
+  text-align: center;
+  font-weight: 300;
+  font-style: italic;
+}
+
 .displayPolls-view {
   display: inline-block;
   margin: 0 auto;

@@ -8,6 +8,38 @@
   margin-bottom: 1rem;
 }
 
+/*----- Sorting -----*/
+#allUsers-sort {
+  margin-bottom: 1rem;
+}
+
+#allUsers-sort button {
+  padding: 0.5rem 0.7rem;
+  border: none;
+  background-color: var(--theme-color);
+  color: white;
+  font-size: var(--default-font);
+}
+
+/* First child */
+#allUsers-sort button:first-child {
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}
+
+/* Last child */
+#allUsers-sort button:last-child {
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+
+#allUsers-sort button:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+/*----- /Sorting -----*/
+
+/*----- List -----*/
 #allUsers-list {
   width: 100%;
   padding: 1rem;
@@ -21,6 +53,11 @@
   border-radius: 0.5rem;
   background-color: var(--light-dark-color);
   color: white;
+}
+
+/* Exclude last item */
+#allUsers-list li:not(:last-child) {
+  margin-bottom: 1rem;
 }
 
 .allUsers-list-username {
@@ -42,10 +79,11 @@
   margin-bottom: 0.3rem;
 }
 
-/* Exclude last item */
-#allUsers-list li:not(:last-child) {
-  margin-bottom: 1rem;
+.allUsers-list-date {
+  font-weight: 300;
+  font-style: italic;
 }
+/*----- /List -----*/
 
 /* ----- Breakpoints ----- */
 /* Medium screen devices (768px and above) */

@@ -8,6 +8,37 @@
   margin-bottom: 1rem;
 }
 
+/*----- Sorting -----*/
+#profile-sort {
+  margin-bottom: 1rem;
+}
+
+#profile-sort button {
+  padding: 0.5rem 0.7rem;
+  border: none;
+  background-color: var(--theme-color);
+  color: white;
+  font-size: var(--default-font);
+}
+
+/* First child */
+#profile-sort button:first-child {
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}
+
+/* Last child */
+#profile-sort button:last-child {
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+
+#profile-sort button:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+/*----- /Sorting -----*/
+
 #profile-polls {
   width: 100%;
 }
