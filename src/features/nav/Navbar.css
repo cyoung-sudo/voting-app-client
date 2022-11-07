@@ -106,7 +106,8 @@
     display: flex;
   }
 
-  #navbar-collapse-label {
+  #navbar-collapse-label,
+  #navbar-collapsedLinks li {
     display: none;
   }
 }
@@ -117,7 +118,8 @@
     display: flex;
   }
 
-  #navbar-collapse-label {
+  #navbar-collapse-label,
+  #navbar-collapsedLinks li {
     display: none;
   }
 }

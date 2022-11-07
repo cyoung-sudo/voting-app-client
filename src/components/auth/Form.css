@@ -39,3 +39,8 @@
   color: white;
   font-size: var(--default-font);
 }
+
+.form-submit input:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
