@@ -73,6 +73,10 @@ export default function ShowPoll(props) {
       .then(res => {
         if(res.data.success) {
           props.handlePopUp("Successfully voted", "success");
+        } else {
+          props.handlePopUp(res.data.message, "error");
+          // Redirect to root route
+          navigate("/");
         }
       })
       .catch(err=> console.log(err));
