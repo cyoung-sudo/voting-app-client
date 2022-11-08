@@ -1,10 +1,11 @@
 import "./AllPolls.css";
-import axios from "axios";
 // React
 import { useState, useEffect } from "react";
 // Components
 import DisplayPolls from "../../components/poll/DisplayPolls";
 import Loading from "../../components/general/Loading";
+// APIs
+import { PollAPI } from "../../apis/PollAPI";
 // Utils
 import { sortByDate } from "../../utils/Sorting";
 
@@ -16,11 +17,7 @@ export default function AllPolls(props) {
 
   // Request for polls on load
   useEffect(() => {
-    axios({
-      method: "get",
-      withCredentials: true,
-      url: "/api/polls"
-    })
+    PollAPI.getAll()
     .then(res => {
       if(res.data.success) {
         setPolls(res.data.polls);

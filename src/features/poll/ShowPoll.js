@@ -1,11 +1,12 @@
 import "./ShowPoll.css";
-import axios from "axios";
 // React
 import { useState, useEffect } from "react";
 // Router
 import { useParams, useNavigate } from "react-router-dom";
 // Components
 import Loading from "../../components/general/Loading";
+// APIs
+import { PollAPI } from "../../apis/PollAPI";
 // Chart
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 // Icons
@@ -30,12 +31,7 @@ export default function ShowPoll(props) {
 
   // Request for poll on load
   useEffect(() => {
-    axios({
-      method: "post",
-      data: { id },
-      withCredentials: true,
-      url: "/api/poll"
-    })
+    PollAPI.getOne(id)
     .then(res => {
       if(res.data.success) {
         setPoll(res.data.poll);
@@ -61,15 +57,7 @@ export default function ShowPoll(props) {
     if(choice === "") {
       props.handlePopUp("No option selected", "error");
     } else {
-      axios({
-        method: "put",
-        data: {
-          id,
-          choice
-        },
-        withCredentials: true,
-        url: "/api/poll/vote"
-      })
+      PollAPI.vote(id, choice)
       .then(res => {
         if(res.data.success) {
           props.handlePopUp("Successfully voted", "success");
@@ -91,15 +79,7 @@ export default function ShowPoll(props) {
     if(newOption === "") {
       props.handlePopUp("No option(s) given", "error");
     } else {
-      axios({
-        method: "put",
-        data: { 
-          id,
-          newOption 
-        },
-        withCredentials: true,
-        url: "/api/poll/option"
-      })
+      PollAPI.addOption(id, newOption)
       .then(res => {
         if(res.data.success) {
           props.handlePopUp("Option(s) added", "success");
@@ -119,12 +99,7 @@ export default function ShowPoll(props) {
   const handleDelete = () => {
     let result = window.confirm("Are you sure you want to delete this poll?");
     if(result) {
-      axios({
-        method: "delete",
-        data: { id },
-        withCredentials: true,
-        url: "/api/poll"
-      })
+      PollAPI.delete(id)
       .then(res => {
         if(res.data.success) {
           props.handlePopUp("Poll deleted", "success");
@@ -143,15 +118,7 @@ export default function ShowPoll(props) {
 
   // Handle changing poll status
   const handleStatus = status => {
-    axios({
-      method: "put",
-      data: { 
-        id,
-        status 
-      },
-      withCredentials: true,
-      url: "/api/poll/status"
-    })
+    PollAPI.setStatus(id, status)
     .then(res => {
       if(res.data.success) {
         props.handlePopUp("Poll status changed", "success");

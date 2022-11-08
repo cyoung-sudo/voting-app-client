@@ -1,5 +1,4 @@
 import "./AllUsers.css";
-import axios from "axios";
 // React
 import { useState, useEffect } from "react";
 // Routing
@@ -7,6 +6,8 @@ import { Link } from "react-router-dom";
 // Components
 import Loading from "../../components/general/Loading";
 import PollCount from "../../components/user/PollCount";
+// APIs
+import { UserAPI } from "../../apis/UserAPI";
 // Utils
 import { sortByDate } from "../../utils/Sorting";
 
@@ -18,11 +19,7 @@ export default function AllUsers(props) {
 
   // Request for all users on load
   useEffect(() => {
-    axios({
-      method: "get",
-      withCredentials: true,
-      url: "/api/users"
-    })
+    UserAPI.getAll()
     .then(res => {
       if(res.data.success) {
         setUsers(res.data.users);

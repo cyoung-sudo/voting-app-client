@@ -1,7 +1,8 @@
 import "./Navbar.css";
-import axios from "axios";
 // Routing
 import { NavLink, useNavigate } from "react-router-dom";
+// APIs
+import { AuthAPI } from "../../apis/AuthAPI";
 // Icons
 import { MdHowToVote } from "react-icons/md";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -12,11 +13,7 @@ export default function Navbar(props) {
 
   // Handle user logout
   const handleLogout = () => {
-    axios({
-      method: "post",
-      withCredentials: true,
-      url: "/api/auth/logout"
-    })
+    AuthAPI.logout()
     .then(res => {
       if(res.data.success) {
         props.handlePopUp("Successfully logged out", "success");

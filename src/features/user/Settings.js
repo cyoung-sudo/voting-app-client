@@ -1,7 +1,9 @@
 import "./Settings.css";
-import axios from "axios";
 // Routing
 import { useNavigate } from "react-router-dom";
+// APIs
+import { AuthAPI } from "../../apis/AuthAPI";
+import { UserAPI } from "../../apis/UserAPI";
 
 export default function Settings(props) {
   // Hooks
@@ -11,18 +13,10 @@ export default function Settings(props) {
   const handleDelete = () => {
     let result = window.confirm("Are you sure you want to delete this account?");
     if(result) {
-      axios({
-        method: "delete",
-        withCredentials: true,
-        url: "/api/user"
-      })
+      UserAPI.delete()
       .then(res => {
         if(res.data.success) {
-          axios({
-            method: "post",
-            withCredentials: true,
-            url: "/api/auth/logout"
-          })
+          AuthAPI.logout()
           .then(res => {
             if(res.data.success) {
               props.handlePopUp("Account deleted", "success");

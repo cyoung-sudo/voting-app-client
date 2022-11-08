@@ -1,11 +1,12 @@
 import "./Signup.css";
-import axios from "axios";
 // React
 import { useState } from "react";
 // Routing
 import { Link, useNavigate } from "react-router-dom";
 // Components
 import Form from "../../components/auth/Form";
+// APIs
+import { AuthAPI } from "../../apis/AuthAPI";
 
 export default function Signup(props) {
   // Controlled inputs
@@ -24,15 +25,7 @@ export default function Signup(props) {
     } else if(password === "") {
       props.handlePopUp("No password given", "error");
     } else {
-      axios({
-        method: "post",
-        data: {
-          username,
-          password
-        },
-        withCredentials: true,
-        url: "/api/auth/signup"
-      })
+      AuthAPI.signup(username, password)
       .then(res => {
         if(res.data.success) {
           props.handlePopUp("Successfully signed up");

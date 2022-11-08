@@ -1,9 +1,10 @@
 import "./CreatePoll.css";
-import axios from "axios";
 // React
 import { useState } from "react";
 // Routing
 import { useNavigate } from "react-router-dom";
+// APIs
+import { PollAPI } from "../../apis/PollAPI";
 
 export default function CreatePoll(props) {
   // Controlled inputs
@@ -22,15 +23,7 @@ export default function CreatePoll(props) {
     } else if(options === "") {
       props.handlePopUp("No option(s) given", "error");
     } else {
-      axios({
-        method: "post",
-        data: {
-          topic,
-          options
-        },
-        withCredentials: true,
-        url: "/api/polls"
-      })
+      PollAPI.create(topic, options)
       .then(res => {
         if(res.data.success) {
           props.handlePopUp("Created poll", "success");

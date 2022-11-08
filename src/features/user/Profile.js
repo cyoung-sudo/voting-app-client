@@ -1,5 +1,4 @@
 import "./Profile.css";
-import axios from "axios";
 // React
 import { useState, useEffect } from "react";
 // Router
@@ -7,6 +6,9 @@ import { useParams, useNavigate } from "react-router-dom";
 // Components
 import DisplayPolls from "../../components/poll/DisplayPolls";
 import Loading from "../../components/general/Loading";
+// APIs
+import { UserAPI } from "../../apis/UserAPI";
+import { PollAPI } from "../../apis/PollAPI";
 // Utils
 import { sortByDate } from "../../utils/Sorting";
 
@@ -22,22 +24,12 @@ export default function Profile(props) {
 
   // Request for user & polls on load
   useEffect(() => {
-    axios({
-      method: "post",
-      data: { id },
-      withCredentials: true,
-      url: "/api/user"
-    })
+    UserAPI.getOne(id)
     .then(res => {
       if(res.data.success) {
         // Set user
         setUser(res.data.user);
-        axios({
-          method: "post",
-          data: { id },
-          withCredentials: true,
-          url: "/api/polls/user"
-        })
+        PollAPI.getAllUser(id)
         .then(res => {
           if(res.data.success) {
             setPolls(res.data.polls)

@@ -1,5 +1,4 @@
 import "./App.css";
-import axios from "axios";
 // React
 import { useState, useEffect } from "react";
 // Router
@@ -18,6 +17,8 @@ import Footer from "./features/nav/Footer";
 // Components
 import Loading from "./components/general/Loading";
 import PopUp from "./components/general/PopUp";
+// APIs
+import { AuthAPI } from "./apis/AuthAPI";
 // Utils
 import ProtectedRoute from "./utils/ProtectedRoute";
 
@@ -34,11 +35,7 @@ function App() {
 
   // Check session status on load
   useEffect(() => {
-    axios({
-      method: "get",
-      withCredentials: true,
-      url: "/api/auth/sessionStatus"
-    })
+    AuthAPI.getUser()
     .then(res => {
       if(res.data.success) {
         setUser(res.data.user);
