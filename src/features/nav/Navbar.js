@@ -2,7 +2,7 @@ import "./Navbar.css";
 // Routing
 import { NavLink, useNavigate } from "react-router-dom";
 // APIs
-import { AuthAPI } from "../../apis/AuthAPI";
+import * as AuthAPI from "../../apis/AuthAPI";
 // Icons
 import { MdHowToVote } from "react-icons/md";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -97,7 +97,9 @@ export default function Navbar(props) {
         </li>}
 
         {props.user && <li>
-          <button onClick={handleLogout}>Logout</button>
+          <button 
+            data-testid="navbar-logout"
+            onClick={handleLogout}>Logout</button>
         </li>}
       </ul>
       {/*----- /Links -----*/}

@@ -7,8 +7,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import DisplayPolls from "../../components/poll/DisplayPolls";
 import Loading from "../../components/general/Loading";
 // APIs
-import { UserAPI } from "../../apis/UserAPI";
-import { PollAPI } from "../../apis/PollAPI";
+import * as UserAPI from "../../apis/UserAPI";
+import * as PollAPI from "../../apis/PollAPI";
 // Utils
 import { sortByDate } from "../../utils/Sorting";
 

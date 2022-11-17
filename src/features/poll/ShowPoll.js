@@ -6,7 +6,7 @@ import { useParams, useNavigate } from "react-router-dom";
 // Components
 import Loading from "../../components/general/Loading";
 // APIs
-import { PollAPI } from "../../apis/PollAPI";
+import * as PollAPI from "../../apis/PollAPI";
 // Chart
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 // Icons
@@ -99,7 +99,7 @@ export default function ShowPoll(props) {
   const handleDelete = () => {
     let result = window.confirm("Are you sure you want to delete this poll?");
     if(result) {
-      PollAPI.delete(id)
+      PollAPI.deletePoll(id)
       .then(res => {
         if(res.data.success) {
           props.handlePopUp("Poll deleted", "success");
@@ -155,6 +155,7 @@ export default function ShowPoll(props) {
             <div className="showPoll-votingForm-group" key={idx}>
               <label>
                 <input
+                  data-testid="showPoll-vote-option"
                   type="radio"
                   name="poll-option"
                   value={option.value}
@@ -166,7 +167,10 @@ export default function ShowPoll(props) {
             </div>
           ))}
           <div className="showPoll-votingForm-submit">
-            <input type="submit" value="Submit Vote"/>
+            <input 
+              data-testid="showPoll-vote-submit"
+              type="submit"
+              value="Submit Vote"/>
           </div>
         </form>}
         {/*----- /Voting Form -----*/}
@@ -176,6 +180,7 @@ export default function ShowPoll(props) {
           <div className="showPoll-optionForm-group">
             <label htmlFor="showPoll-optionForm-option">New Option</label>
             <input 
+              data-testid="showPoll-newOption"
               onChange={e => setNewOption(e.target.value)}
               type="text" 
               id="showPoll-optionForm-option"
@@ -183,7 +188,10 @@ export default function ShowPoll(props) {
           </div>
 
           <div className="showPoll-optionForm-submit">
-            <input type="submit" value="Add Option"/>
+            <input
+              data-testid="showPoll-newOption-submit"
+              type="submit" 
+              value="Add Option"/>
           </div>
         </form>}
         {/*----- /Option Form -----*/}
@@ -215,18 +223,31 @@ export default function ShowPoll(props) {
 
         {/*----- Controls -----*/}
         <div id="showPoll-ctrs">
-          <button onClick={handleRefresh} className="showPoll-ctrs-refresh">
+          <button 
+            data-testid="showPoll-refresh"
+            onClick={handleRefresh}
+            className="showPoll-ctrs-refresh">
             <span><FiRefreshCw/></span>Refresh
           </button>
-          {owner && !poll.closed && <button onClick={() => handleStatus("close")} className="showPoll-ctrs-close">
-            <span><AiFillLock/></span>Close Poll
-          </button>}
+          {owner && !poll.closed && 
+            <button 
+              data-testid="showPoll-close"
+              onClick={() => handleStatus("close")}
+              className="showPoll-ctrs-close">
+              <span><AiFillLock/></span>Close Poll
+            </button>
+          }
           {owner && poll.closed && <button onClick={() => handleStatus("open")} className="showPoll-ctrs-open">
             <span><AiFillUnlock/></span>Open Poll
           </button>}
-          {owner && <button onClick={handleDelete} className="showPoll-ctrs-delete">
-            <span><BsTrashFill/></span>Delete
-          </button>}
+          {owner && 
+            <button 
+              data-testid="showPoll-delete"
+              onClick={handleDelete} 
+              className="showPoll-ctrs-delete">
+              <span><BsTrashFill/></span>Delete
+            </button>
+          }
         </div>
         {/*----- /Controls -----*/}
       </div>

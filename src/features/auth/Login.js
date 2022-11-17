@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 // Components
 import Form from "../../components/auth/Form";
 // APIs
-import { AuthAPI } from "../../apis/AuthAPI";
+import * as AuthAPI from "../../apis/AuthAPI";
 
 export default function Login(props) {
   // Controlled inputs

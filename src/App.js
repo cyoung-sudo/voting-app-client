@@ -18,7 +18,7 @@ import Footer from "./features/nav/Footer";
 import Loading from "./components/general/Loading";
 import PopUp from "./components/general/PopUp";
 // APIs
-import { AuthAPI } from "./apis/AuthAPI";
+import * as AuthAPI from "./apis/AuthAPI";
 // Utils
 import ProtectedRoute from "./utils/ProtectedRoute";
 

@@ -2,8 +2,8 @@ import "./Settings.css";
 // Routing
 import { useNavigate } from "react-router-dom";
 // APIs
-import { AuthAPI } from "../../apis/AuthAPI";
-import { UserAPI } from "../../apis/UserAPI";
+import * as AuthAPI from "../../apis/AuthAPI";
+import * as UserAPI from "../../apis/UserAPI";
 
 export default function Settings(props) {
   // Hooks
@@ -13,7 +13,7 @@ export default function Settings(props) {
   const handleDelete = () => {
     let result = window.confirm("Are you sure you want to delete this account?");
     if(result) {
-      UserAPI.delete()
+      UserAPI.deleteUser()
       .then(res => {
         if(res.data.success) {
           AuthAPI.logout()
@@ -54,7 +54,9 @@ export default function Settings(props) {
       <ul id="settings-options">
         <li className="settings-option">
           <div>Delete Account?</div>
-          <button onClick={handleDelete}>Delete</button>
+          <button 
+            data-testid="settings-delete"
+            onClick={handleDelete}>Delete</button>
         </li>
       </ul>
     </div>

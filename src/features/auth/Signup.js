@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 // Components
 import Form from "../../components/auth/Form";
 // APIs
-import { AuthAPI } from "../../apis/AuthAPI";
+import * as AuthAPI from "../../apis/AuthAPI";
 
 export default function Signup(props) {
   // Controlled inputs
@@ -28,7 +28,7 @@ export default function Signup(props) {
       AuthAPI.signup(username, password)
       .then(res => {
         if(res.data.success) {
-          props.handlePopUp("Successfully signed up");
+          props.handlePopUp("Successfully signed up", "success");
           // Redirect to login route
           navigate("/login");
         } else {

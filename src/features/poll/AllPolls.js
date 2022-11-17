@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import DisplayPolls from "../../components/poll/DisplayPolls";
 import Loading from "../../components/general/Loading";
 // APIs
-import { PollAPI } from "../../apis/PollAPI";
+import * as PollAPI from "../../apis/PollAPI";
 // Utils
 import { sortByDate } from "../../utils/Sorting";
 

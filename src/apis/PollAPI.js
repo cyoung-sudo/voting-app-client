@@ -1,102 +1,100 @@
 import api from "./configs/axiosConfig";
 
-export const PollAPI = {
-  // Request for all polls
-  getAll: async () => {
-    const res = await api.request({
-      method: "get",
-      url: "/api/polls"
-    });
+// Request for all polls
+export const getAll = async () => {
+  const res = await api.request({
+    method: "get",
+    url: "/api/polls"
+  });
 
-    return res;
-  },
+  return res;
+};
 
-  // Request all polls for given user
-  getAllUser: async (id) => {
-    const res = await api.request({
-      method: "post",
-      data: { id },
-      url: "/api/polls/user"
-    });
+// Request to create poll
+export const create = async (topic, options) => {
+  const res = await api.request({
+    method: "post",
+    data: {
+      topic,
+      options
+    },
+    url: "/api/polls"
+  });
 
-    return res;
-  },
+  return res;
+};
 
-  // Request for specific poll
-  getOne: async (id) => {
-    const res = await api.request({
-      method: "post",
-      data: { id },
-      url: "/api/poll"
-    });
+// Request all polls for given user
+export const getAllUser = async (id) => {
+  const res = await api.request({
+    method: "post",
+    data: { id },
+    url: "/api/polls/user"
+  });
 
-    return res;
-  },
+  return res;
+};
 
-  // Request to create poll
-  create: async (topic, options) => {
-    const res = await api.request({
-      method: "post",
-      data: {
-        topic,
-        options
-      },
-      url: "/api/polls"
-    });
+// Request for specific poll
+export const getOne = async (id) => {
+  const res = await api.request({
+    method: "post",
+    data: { id },
+    url: "/api/poll"
+  });
 
-    return res;
-  },
+  return res;
+};
 
-  // Request to vote for given poll
-  vote: async (id, choice) => {
-    const res = await api.request({
-      method: "put",
-      data: {
-        id,
-        choice
-      },
-      url: "/api/poll/vote"
-    });
+// Request to vote for given poll
+export const vote = async (id, choice) => {
+  const res = await api.request({
+    method: "put",
+    data: {
+      id,
+      choice
+    },
+    url: "/api/poll/vote"
+  });
 
-    return res;
-  },
+  return res;
+};
 
-  // Request to add option for given poll
-  addOption: async (id, newOption) => {
-    const res = await api.request({
-      method: "put",
-      data: { 
-        id,
-        newOption 
-      },
-      url: "/api/poll/option"
-    });
+// Request to add option for given poll
+export const addOption = async (id, newOption) => {
+  const res = await api.request({
+    method: "put",
+    data: { 
+      id,
+      newOption 
+    },
+    url: "/api/poll/option"
+  });
 
-    return res;
-  },
+  return res;
+};
 
-  // Request to set status for given poll
-  setStatus: async (id, status) => {
-    const res = await api.request({
-      method: "put",
-      data: { 
-        id,
-        status 
-      },
-      url: "/api/poll/status"
-    });
+// Request to set status for given poll
+export const setStatus = async (id, status) => {
+  const res = await api.request({
+    method: "put",
+    data: { 
+      id,
+      status 
+    },
+    url: "/api/poll/status"
+  });
 
-    return res;
-  },
+  return res;
+};
 
-  // Request to delete given poll
-  delete: async (id) => {
-    const res = await api.request({
-      method: "delete",
-      data: { id },
-      url: "/api/poll"
-    });
+// Request to delete given poll
+export const deletePoll = async (id) => {
+  const res = await api.request({
+    method: "delete",
+    data: { id },
+    url: "/api/poll"
+  });
 
-    return res;
-  }
+  return res;
 };

@@ -4,7 +4,7 @@ import { useState } from "react";
 // Routing
 import { useNavigate } from "react-router-dom";
 // APIs
-import { PollAPI } from "../../apis/PollAPI";
+import * as PollAPI from "../../apis/PollAPI";
 
 export default function CreatePoll(props) {
   // Controlled inputs
@@ -50,7 +50,8 @@ export default function CreatePoll(props) {
       <form id="createPoll-form" onSubmit={e => handleSubmit(e)}>
         <div className="createPoll-form-group">
           <label htmlFor="createPoll-form-topic">Topic</label>
-          <input 
+          <input
+            data-testid="createPoll-topic"
             onChange={e => setTopic(e.target.value)}
             type="text" 
             id="createPoll-form-topic"
@@ -59,7 +60,8 @@ export default function CreatePoll(props) {
 
         <div className="createPoll-form-group">
           <label htmlFor="createPoll-form-options">Options (separate with commas)</label>
-          <textarea 
+          <textarea
+            data-testid="createPoll-options"
             onChange={e => setOptions(e.target.value)}
             type="text"
             id="createPoll-form-options"
@@ -67,7 +69,10 @@ export default function CreatePoll(props) {
         </div>
 
         <div className="createPoll-form-submit">
-          <input type="submit" value="Submit"/>
+          <input 
+            data-testid="createPoll-submit"
+            type="submit"
+            value="Submit"/>
         </div>
       </form>
     </div>

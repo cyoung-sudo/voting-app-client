@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import Loading from "../../components/general/Loading";
 import PollCount from "../../components/user/PollCount";
 // APIs
-import { UserAPI } from "../../apis/UserAPI";
+import * as UserAPI from "../../apis/UserAPI";
 // Utils
 import { sortByDate } from "../../utils/Sorting";
 
@@ -49,7 +49,9 @@ export default function AllUsers(props) {
   
         <ul id="allUsers-list">
           {users.map((user, idx) => (
-            <li key={idx}>
+            <li 
+              data-testid="allUsers-user"
+              key={idx}>
               <Link className="allUsers-list-username" to={`/users/${user._id}`}>
                 {user.username}
               </Link>
