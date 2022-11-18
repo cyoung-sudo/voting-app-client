@@ -10,5 +10,3 @@ export const sortByDate = (array, mode) => {
     });
   }
 }
-
-export default { sortByDate };
