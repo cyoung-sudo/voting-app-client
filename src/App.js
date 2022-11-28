@@ -109,7 +109,6 @@ function App() {
                   user={user}
                   handlePopUp={handlePopUp}>
                   <CreatePoll 
-                    user={user}
                     setUser={setUser}
                     handlePopUp={handlePopUp}/>
                 </ProtectedRoute>}/>

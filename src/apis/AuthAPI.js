@@ -42,7 +42,7 @@ export const logout = async () => {
 export const getUser = async () => {
   const res = await api.request({
     method: "get",
-    url: "/api/auth/sessionStatus"
+    url: "/api/auth/getUser"
   });
 
   return res;

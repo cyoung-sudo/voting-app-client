@@ -11,10 +11,11 @@ export const getAll = async () => {
 };
 
 // Request to create poll
-export const create = async (topic, options) => {
+export const create = async (userId, topic, options) => {
   const res = await api.request({
     method: "post",
     data: {
+      userId,
       topic,
       options
     },

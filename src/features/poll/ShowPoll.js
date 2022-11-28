@@ -7,6 +7,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import Loading from "../../components/general/Loading";
 // APIs
 import * as PollAPI from "../../apis/PollAPI";
+import * as AuthAPI from "../../apis/AuthAPI";
 // Chart
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 // Icons
@@ -75,55 +76,94 @@ export default function ShowPoll(props) {
   const handleOption = e => {
     // Prevent refresh on submit
     e.preventDefault();
-    // Validations
-    if(newOption === "") {
-      props.handlePopUp("No option(s) given", "error");
-    } else {
-      PollAPI.addOption(id, newOption)
-      .then(res => {
-        if(res.data.success) {
-          props.handlePopUp("Option(s) added", "success");
+    // Check for valid session
+    AuthAPI.getUser()
+    .then(res => {
+      if(res.data.success) {
+        // Validations
+        if(newOption === "") {
+          props.handlePopUp("No option(s) given", "error");
         } else {
-          props.handlePopUp(res.data.message, "error");
-          // Reset user
-          props.setUser(null);
-          // Redirect to root route
-          navigate("/");
+          PollAPI.addOption(id, newOption)
+          .then(res => {
+            if(res.data.success) {
+              props.handlePopUp("Option(s) added", "success");
+            } else {
+              props.handlePopUp(res.data.message, "error");
+              // Reset user
+              props.setUser(null);
+              // Redirect to root route
+              navigate("/");
+            }
+          })
+          .catch(err => console.log(err));
         }
-      })
-      .catch(err => console.log(err));
-    }
+      } else {
+        props.handlePopUp("Session has expired", "error");
+        // Reset user
+        props.setUser(null);
+        // Redirect to root route
+        navigate("/");
+      }
+    })
+    .catch(err => console.log(err))
   };
 
   // Handle deleting poll
   const handleDelete = () => {
-    let result = window.confirm("Are you sure you want to delete this poll?");
-    if(result) {
-      PollAPI.deletePoll(id)
-      .then(res => {
-        if(res.data.success) {
-          props.handlePopUp("Poll deleted", "success");
-          navigate(`/users/${poll.userId}`);
-        } else {
-          props.handlePopUp(res.data.message, "error");
-          // Reset user
-          props.setUser(null);
-          // Redirect to root route
-          navigate("/");
+    // Check for valid session
+    AuthAPI.getUser()
+    .then(res => {
+      if(res.data.success) {
+        let result = window.confirm("Are you sure you want to delete this poll?");
+        if(result) {
+          PollAPI.deletePoll(id)
+          .then(res => {
+            if(res.data.success) {
+              props.handlePopUp("Poll deleted", "success");
+              navigate(`/users/${poll.userId}`);
+            } else {
+              props.handlePopUp(res.data.message, "error");
+              // Reset user
+              props.setUser(null);
+              // Redirect to root route
+              navigate("/");
+            }
+          })
+          .catch(err => console.log(err));
         }
-      })
-      .catch(err => console.log(err));
-    }
+      } else {
+        props.handlePopUp("Session has expired", "error");
+        // Reset user
+        props.setUser(null);
+        // Redirect to root route
+        navigate("/");
+      }
+    })
+    .catch(err => console.log(err));
   }
 
   // Handle changing poll status
   const handleStatus = status => {
-    PollAPI.setStatus(id, status)
+    // Check for valid session
+    AuthAPI.getUser()
     .then(res => {
       if(res.data.success) {
-        props.handlePopUp("Poll status changed", "success");
+        PollAPI.setStatus(id, status)
+        .then(res => {
+          if(res.data.success) {
+            props.handlePopUp("Poll status changed", "success");
+          } else {
+            props.handlePopUp(res.data.message, "error");
+            // Reset user
+            props.setUser(null);
+            // Redirect to root route
+            navigate("/");
+          }
+        })
+        .catch(err => console.log(err));
       } else {
-        props.handlePopUp(res.data.message, "error");
+        props.handlePopUp("Session has expired", "error");
         // Reset user
         props.setUser(null);
         // Redirect to root route

@@ -6,9 +6,12 @@ import { BrowserRouter } from "react-router-dom";
 import ShowPoll from "../ShowPoll";
 // APIs
 import * as PollAPI from "../../../apis/PollAPI";
+import * as AuthAPI from "../../../apis/AuthAPI";
 
 // Mocked APIs
 jest.mock("../../../apis/PollAPI");
+jest.mock("../../../apis/AuthAPI");
+
 // Mocked to fix "ResponsiveContainer" testing error
 jest.mock("recharts", () => ({
   ...jest.requireActual("recharts"),
@@ -100,6 +103,10 @@ describe("<ShowPoll/>", () => {
       data: { success: true }
     });
 
+    AuthAPI.getUser.mockResolvedValue({
+      data: { success: true }
+    });
+
     // Mock prop functions
     const mockHandlePopUp = jest.fn();
 
@@ -127,6 +134,10 @@ describe("<ShowPoll/>", () => {
   it("correctly deletes poll", async () => {
     // Mock API function
     PollAPI.deletePoll.mockResolvedValue({
+      data: { success: true }
+    });
+
+    AuthAPI.getUser.mockResolvedValue({
       data: { success: true }
     });
 
@@ -159,6 +170,10 @@ describe("<ShowPoll/>", () => {
   it("correctly changes poll status", async () => {
     // Mock API function
     PollAPI.setStatus.mockResolvedValue({
+      data: { success: true }
+    });
+
+    AuthAPI.getUser.mockResolvedValue({
       data: { success: true }
     });
 

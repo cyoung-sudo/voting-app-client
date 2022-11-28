@@ -24,6 +24,14 @@ describe("<Settings/>", () => {
     UserAPI.deleteUser.mockResolvedValue({
       data: { success: true }
     });
+
+    AuthAPI.getUser.mockResolvedValue({
+      data: { 
+        success: true,
+        user: { _id: "000" }
+      }
+    });
+
     AuthAPI.logout.mockResolvedValue({
       data: { success: true }
     });

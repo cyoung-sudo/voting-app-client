@@ -11,19 +11,32 @@ export default function Settings(props) {
 
   // Handle deleting account
   const handleDelete = () => {
-    let result = window.confirm("Are you sure you want to delete this account?");
-    if(result) {
-      UserAPI.deleteUser()
-      .then(res => {
-        if(res.data.success) {
-          AuthAPI.logout()
+    // Check for valid session
+    AuthAPI.getUser()
+    .then(res => {
+      if(res.data.success) {
+        let result = window.confirm("Are you sure you want to delete this account?");
+        if(result) {
+          UserAPI.deleteUser(res.data.user._id)
           .then(res => {
             if(res.data.success) {
-              props.handlePopUp("Account deleted", "success");
-              // Reset user state
-              props.setUser(null);
-              // Redirect to root route
-              navigate("/");
+              AuthAPI.logout()
+              .then(res => {
+                if(res.data.success) {
+                  props.handlePopUp("Account deleted", "success");
+                  // Reset user state
+                  props.setUser(null);
+                  // Redirect to root route
+                  navigate("/");
+                } else {
+                  props.handlePopUp(res.data.message, "error");
+                  // Reset user
+                  props.setUser(null);
+                  // Redirect to root route
+                  navigate("/");
+                }
+              })
+              .catch(err => console.log(err));
             } else {
               props.handlePopUp(res.data.message, "error");
               // Reset user
@@ -33,16 +46,15 @@ export default function Settings(props) {
             }
           })
           .catch(err => console.log(err));
-        } else {
-          props.handlePopUp(res.data.message, "error");
-          // Reset user
-          props.setUser(null);
-          // Redirect to root route
-          navigate("/");
         }
-      })
-      .catch(err => console.log(err));
-    }
+      } else {
+        props.handlePopUp("Session has expired", "error");
+        // Reset user
+        props.setUser(null);
+        // Redirect to root route
+        navigate("/");
+      }
+    })
   };
 
   return (

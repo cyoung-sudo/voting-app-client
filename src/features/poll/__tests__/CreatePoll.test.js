@@ -6,11 +6,22 @@ import { BrowserRouter } from "react-router-dom";
 import CreatePoll from "../CreatePoll";
 // APIs
 import * as PollAPI from "../../../apis/PollAPI";
+import * as AuthAPI from "../../../apis/AuthAPI";
 
 // Mocks
 jest.mock("../../../apis/PollAPI");
+jest.mock("../../../apis/AuthAPI");
 
 describe("<CreatePoll/>", () => {
+  beforeEach(() => {
+    AuthAPI.getUser.mockResolvedValue({
+      data: { 
+        success: true,
+        user: { _id: "000" }
+      }
+    });
+  });
+
   afterEach(() => {
     cleanup();
     jest.restoreAllMocks();
@@ -18,7 +29,7 @@ describe("<CreatePoll/>", () => {
 
   //----- Test 1 -----
   it("correctly submits form data", async () => {
-    // Mock API function
+    // Mock API functions
     PollAPI.create.mockResolvedValue({
       data: { success: true }
     });
@@ -28,9 +39,7 @@ describe("<CreatePoll/>", () => {
 
     render(
       <BrowserRouter>
-        <CreatePoll 
-          user={{_id: "000"}}
-          handlePopUp={mockHandlePopUp}/>
+        <CreatePoll handlePopUp={mockHandlePopUp}/>
       </BrowserRouter>
     );
 
@@ -39,7 +48,7 @@ describe("<CreatePoll/>", () => {
     userEvent.click(screen.getByTestId("createPoll-submit"));
     
     await waitFor(() => {
-      expect(PollAPI.create).toHaveBeenCalledWith("Topic1", "option1,option2");
+      expect(PollAPI.create).toHaveBeenCalledWith("000", "Topic1", "option1,option2");
       expect(mockHandlePopUp).toHaveBeenCalledWith("Created poll", "success");
     });
   }),

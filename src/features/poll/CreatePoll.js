@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 // APIs
 import * as PollAPI from "../../apis/PollAPI";
+import * as AuthAPI from "../../apis/AuthAPI";
 
 export default function CreatePoll(props) {
   // Controlled inputs
@@ -17,28 +18,36 @@ export default function CreatePoll(props) {
   const handleSubmit = e => {
     // Prevent refresh on submit
     e.preventDefault();
-    // Validations
-    if(topic === "") {
-      props.handlePopUp("No topic given", "error");
-    } else if(options === "") {
-      props.handlePopUp("No option(s) given", "error");
-    } else {
-      PollAPI.create(topic, options)
-      .then(res => {
-        if(res.data.success) {
-          props.handlePopUp("Created poll", "success");
-          // Redirect to profile route
-          navigate(`/users/${props.user._id}`);
+    // Check for valid session
+    AuthAPI.getUser()
+    .then(res => {
+      if(res.data.success) {
+        // Validations
+        if(topic === "") {
+          props.handlePopUp("No topic given", "error");
+        } else if(options === "") {
+          props.handlePopUp("No option(s) given", "error");
         } else {
-          props.handlePopUp(res.data.message, "error");
-          // Reset user
-          props.setUser(null);
-          // Redirect to root route
-          navigate("/");
+          let userId = res.data.user._id;
+          PollAPI.create(res.data.user._id, topic, options)
+          .then(res => {
+            if(res.data.success) {
+              props.handlePopUp("Created poll", "success");
+              // Redirect to profile route
+              navigate(`/users/${userId}`);
+            }
+          })
+          .catch(err => console.log(err));
         }
-      })
-      .catch(err => console.log(err));
-    }
+      } else {
+        props.handlePopUp("Session has expired", "error");
+        // Reset user
+        props.setUser(null);
+        // Redirect to root route
+        navigate("/");
+      }
+    })
+    .catch(err => console.log(err));
   }
 
   return (
